@@ -16,8 +16,9 @@
 #ifndef CORE_FILE_LOCK_HPP
 #define CORE_FILE_LOCK_HPP
 
-#include <boost/utility.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <core/FilePath.hpp>
+
+#include <boost/noncopyable.hpp>
 
 namespace rstudio {
 namespace core {
@@ -28,23 +29,15 @@ class FilePath;
 class FileLock : boost::noncopyable
 {
 public:
-   static bool isLocked(const FilePath& lockFilePath);
-
-public:
-   FileLock();
-   virtual ~FileLock();
-
-   // COPYING: noncopyable
-
-   Error acquire(const FilePath& lockFilePath);
+   static bool isLocked(const FilePath& filePath);
+   Error acquire(const FilePath& filePath);
    Error release();
-
-   FilePath lockFilePath() const;
-
+   FilePath filePath() const { return filePath_; }
 private:
-   struct Impl;
-   boost::scoped_ptr<Impl> pImpl_;
+   FilePath filePath_;
 };
+
+const FilePath& phantomFileSystemPath();
 
 } // namespace core
 } // namespace rstudio

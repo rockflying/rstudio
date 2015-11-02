@@ -153,6 +153,9 @@ public:
    // remove the directory (if it exists) and create a new one in its place
    Error resetDirectory() const;
    
+   // get the canonical path (resolve symlinks)
+   FilePath canonicalPath() const;
+   
    // complete a path (if input path is relative, returns path relative
    // to this one; if input path is absolute returns that path)
    FilePath complete(const std::string& path) const;

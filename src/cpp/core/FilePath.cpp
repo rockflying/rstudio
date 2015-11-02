@@ -773,6 +773,12 @@ Error FilePath::resetDirectory() const
    return ensureDirectory();
 }
 
+FilePath FilePath::canonicalPath() const
+{
+   boost::filesystem::path resolved = boost::filesystem::canonical(absolutePath());
+   return FilePath(BOOST_FS_PATH2STR(resolved));
+}
+
 
 FilePath FilePath::complete(const std::string& path) const
 {

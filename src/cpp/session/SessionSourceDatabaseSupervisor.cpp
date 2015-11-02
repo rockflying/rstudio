@@ -260,7 +260,7 @@ Error createSessionDirFromOldSourceDatabase(FilePath* pSessionDir)
 
    // attempt to acquire the lock. if we can't then we still continue
    // so we can support filesystems that don't have file locks.
-   error =  s_sessionDirLock.acquire(sessionLockFilePath(*pSessionDir));
+   error = s_sessionDirLock.acquire(sessionLockFilePath(*pSessionDir));
    if (error)
       LOG_ERROR(error);
 
@@ -511,7 +511,7 @@ Error detachFromSourceDatabase()
    }
 
    // record session dir (parent of lock file)
-   FilePath sessionDir = s_sessionDirLock.lockFilePath().parent();
+   FilePath sessionDir = s_sessionDirLock.filePath().parent();
 
    // give up our lock
    error = s_sessionDirLock.release();
